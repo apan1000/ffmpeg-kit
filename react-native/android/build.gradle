@@ -5,7 +5,7 @@ buildscript {
   }
 
   dependencies {
-    classpath 'com.android.tools.build:gradle:8.1.0'
+    classpath 'com.android.tools.build:gradle:8.10.0'
   }
 }
 
@@ -30,11 +30,11 @@ android {
     namespace 'com.arthenica.ffmpegkit.reactnative'
   }
 
-  compileSdkVersion 33
+  compileSdkVersion 35
 
   defaultConfig {
     minSdkVersion safeExtGet('ffmpegKitPackage', 'https').contains("-lts") ? 16 : 24
-    targetSdkVersion 33
+    targetSdkVersion 35
     versionCode 602
     versionName "6.0.2"
   }
