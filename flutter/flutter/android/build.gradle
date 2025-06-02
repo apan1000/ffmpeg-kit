@@ -13,6 +13,9 @@ rootProject.allprojects {
     repositories {
         google()
         mavenCentral()
+        maven {
+            url = uri("https://maven.pkg.github.com/apan1000/ffmpeg-kit")
+        }
     }
 }
 
@@ -49,5 +52,5 @@ android {
 
 dependencies {
     implementation 'androidx.annotation:annotation:1.9.1'
-    implementation 'com.arthenica:ffmpeg-kit-min-gpl:6.0-2'
+    implementation 'com.apan1000:ffmpeg-kit-min-gpl:6.0-3'
 }
