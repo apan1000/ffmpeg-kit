@@ -13,7 +13,7 @@ rootProject.allprojects {
     repositories {
         google()
         mavenCentral()
-        maven { url "https://raw.githubusercontent.com/apan1000/ffmpeg-kit/6.0-3/" }
+        maven { url 'https://jitpack.io' }
     }
 }
 
@@ -50,5 +50,5 @@ android {
 
 dependencies {
     implementation 'androidx.annotation:annotation:1.9.1'
-    implementation 'com.apan1000.ffmpegkit:ffmpeg-kit-min-gpl:6.0-3'
+    implementation implementation 'com.github.apan1000:ffmpeg-kit:v6.0.3'
 }
