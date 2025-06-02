@@ -13,7 +13,7 @@ rootProject.allprojects {
     repositories {
         google()
         mavenCentral()
-        maven { url "https://raw.githubusercontent.com/apan1000/ffmpeg-kit/6.0-3/" }
+        maven { url "https://raw.githubusercontent.com/apan1000/ffmpeg-kit/maven-6.0-3/" }
     }
 }
 
