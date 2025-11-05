@@ -32,14 +32,21 @@
  *
  * @return architecture name of the cpu running
  */
-+ (NSString*)getCpuArch;
++ (NSString *)getCpuArch;
 
 /**
  * Returns architecture name loaded.
  *
  * @return architecture name loaded
  */
-+ (NSString*)getArch;
++ (NSString *)getArch;
+
+/**
+ * Returns the minimum skd version required to run this native library
+ *
+ * @return the minimum skd version required to run this native library
+ */
++ (NSString *)getMinSdk;
 
 @end
 
