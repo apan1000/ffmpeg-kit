@@ -104,6 +104,11 @@ for library in {0..61}; do
       LDFLAGS+=" $(pkg-config --libs --static freetype2 2>>"${BASEDIR}"/build.log)"
       CONFIGURE_POSTFIX+=" --enable-libfreetype"
       ;;
+    harfbuzz)
+      CFLAGS+=" $(pkg-config --cflags harfbuzz 2>>"${BASEDIR}"/build.log)"
+      LDFLAGS+=" $(pkg-config --libs --static harfbuzz 2>>"${BASEDIR}"/build.log)"
+      CONFIGURE_POSTFIX+=" --enable-libharfbuzz"
+      ;;
     fribidi)
       CFLAGS+=" $(pkg-config --cflags fribidi 2>>"${BASEDIR}"/build.log)"
       LDFLAGS+=" $(pkg-config --libs --static fribidi 2>>"${BASEDIR}"/build.log)"

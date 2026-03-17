@@ -1,4 +1,72 @@
-# FFmpegKit ![GitHub release](https://img.shields.io/badge/release-v6.0-blue.svg) ![Maven Central](https://img.shields.io/maven-central/v/com.arthenica/ffmpeg-kit-min) ![CocoaPods](https://img.shields.io/cocoapods/v/ffmpeg-kit-ios-min) ![pub](https://img.shields.io/pub/v/ffmpeg_kit_flutter.svg) ![npm](https://img.shields.io/npm/v/ffmpeg-kit-react-native.svg)
+# FFmpegKit (Monolit Fork)
+
+## Fork Changes
+
+This is a fork of [arthenica/ffmpeg-kit](https://github.com/arthenica/ffmpeg-kit) customized for the Monolit app.
+
+### What changed
+
+1. **iOS frameworks are vendored locally** instead of pulled from CocoaPods.
+   The `min-gpl` subspec in `flutter/flutter/ios/ffmpeg_kit_flutter.podspec` uses
+   `vendored_frameworks` pointing to `Frameworks/ffmpeg-kit-min-gpl-6/*.xcframework`.
+
+2. **Added `--enable-libharfbuzz` to FFmpeg build scripts** (`scripts/apple/ffmpeg.sh`
+   and `scripts/android/ffmpeg.sh`). Upstream only built harfbuzz as a standalone
+   library but never passed the flag to FFmpeg's configure, so the `drawtext` filter
+   was silently disabled.
+
+3. **Enabled freetype, harfbuzz, and fontconfig** in the min-gpl build to support
+   FFmpeg's `drawtext` filter (used for rendering usernames on shared videos).
+
+### How to rebuild
+
+#### iOS
+
+```bash
+# Clean stale ffmpeg config (critical — reuses old config_components.h otherwise)
+rm -rf prebuilt/apple-ios-*/ffmpeg
+rm -rf prebuilt/bundle-apple-xcframework-ios-12.1
+rm -f src/ffmpeg/config_components.h
+
+./ios.sh --xcframework --enable-gpl --enable-libvidstab --enable-x264 --enable-x265 \
+  --enable-xvidcore --enable-zimg --enable-freetype --enable-harfbuzz --enable-fontconfig
+
+# Copy output to vendored location
+rm -rf flutter/flutter/ios/Frameworks/ffmpeg-kit-min-gpl-6
+cp -R prebuilt/bundle-apple-xcframework-ios-12.1 flutter/flutter/ios/Frameworks/ffmpeg-kit-min-gpl-6
+```
+
+#### Android
+
+```bash
+export ANDROID_SDK_ROOT=~/Library/Android/sdk
+export ANDROID_NDK_ROOT=~/Library/Android/sdk/ndk/25.3.12161346
+
+# Clean stale ffmpeg config
+rm -rf prebuilt/android-*/ffmpeg
+rm -f src/ffmpeg/config_components.h
+
+./android.sh --enable-gpl --enable-libvidstab --enable-x264 --enable-x265 \
+  --enable-xvidcore --enable-zimg --enable-freetype --enable-harfbuzz --enable-fontconfig
+```
+
+### Gotchas
+
+- **`config_components.h` must be deleted** before rebuilding. The FFmpeg source tree
+  is shared across architectures, and configure won't regenerate this file if it
+  already exists, leading to stale filter flags.
+- **`drawtext` requires both freetype AND harfbuzz** (since FFmpeg 6.x).
+  Enabling only freetype silently disables the filter.
+- **harfbuzz requires fontconfig** in the ffmpeg-kit build dependency graph.
+  Without `--enable-fontconfig`, harfbuzz is skipped.
+- If `libiconv` fails on Android with `libcharset` errors, delete
+  `src/libiconv/` and re-run — the source tree gets dirty across platform builds.
+
+---
+
+## Original README
+
+![GitHub release](https://img.shields.io/badge/release-v6.0-blue.svg) ![Maven Central](https://img.shields.io/maven-central/v/com.arthenica/ffmpeg-kit-min) ![CocoaPods](https://img.shields.io/cocoapods/v/ffmpeg-kit-ios-min) ![pub](https://img.shields.io/pub/v/ffmpeg_kit_flutter.svg) ![npm](https://img.shields.io/npm/v/ffmpeg-kit-react-native.svg)
 
 ## Notice
 FFmpegKit has been officially retired. There will be no further `ffmpeg-kit` releases.
