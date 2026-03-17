@@ -13,7 +13,7 @@ rootProject.allprojects {
     repositories {
         google()
         mavenCentral()
-        maven { url "https://raw.githubusercontent.com/apan1000/ffmpeg-kit/maven-6.0-5/" }
+        maven { url "https://raw.githubusercontent.com/apan1000/ffmpeg-kit/maven-6.0-6/" }
     }
 }
 
@@ -50,6 +50,6 @@ android {
 
 dependencies {
     implementation 'androidx.annotation:annotation:1.9.1'
-    implementation 'com.apan1000.ffmpegkit:ffmpeg-kit-min-gpl:6.0-5'
+    implementation 'com.apan1000.ffmpegkit:ffmpeg-kit-min-gpl:6.0-6'
     implementation 'com.arthenica:smart-exception-java:0.2.1'
 }
