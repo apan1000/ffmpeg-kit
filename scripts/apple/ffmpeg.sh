@@ -179,6 +179,11 @@ for library in {0..61}; do
       FFMPEG_LDFLAGS+=" $(pkg-config --libs --static freetype2 2>>"${BASEDIR}"/build.log)"
       CONFIGURE_POSTFIX+=" --enable-libfreetype"
       ;;
+    harfbuzz)
+      FFMPEG_CFLAGS+=" $(pkg-config --cflags harfbuzz 2>>"${BASEDIR}"/build.log)"
+      FFMPEG_LDFLAGS+=" $(pkg-config --libs --static harfbuzz 2>>"${BASEDIR}"/build.log)"
+      CONFIGURE_POSTFIX+=" --enable-libharfbuzz"
+      ;;
     fribidi)
       FFMPEG_CFLAGS+=" $(pkg-config --cflags fribidi 2>>"${BASEDIR}"/build.log)"
       FFMPEG_LDFLAGS+=" $(pkg-config --libs --static fribidi 2>>"${BASEDIR}"/build.log)"
